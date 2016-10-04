@@ -1,6 +1,9 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var watch = require('gulp-watch');
+var minifycss = require('gulp-minify-css');
+var rename = require('gulp-rename');
+var minifyjs = require('gulp-minify');
 
 
 //////////// PATHS ////////////////
@@ -50,4 +53,28 @@ gulp.task('callback', function () {
 });
 
 
-gulp.task('default', ['watch','callback','css', 'fonts']);
+gulp.task('minify-css', function () {
+    gulp.src('./public/css/app.css')
+        .pipe(minifycss({keepBreaks: true}))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(gulp.dest(config.publicDir + '/css'))
+    ;
+});
+
+gulp.task('minify-js', function() {
+  gulp.src('./js/main.js')
+    .pipe(minifyjs({
+        ext:{
+            src:'.js',
+            min:'.min.js'
+        },
+        exclude: ['tasks'],
+        ignoreFiles: ['.combo.js', '-min.js']
+    }))
+    .pipe(gulp.dest(config.publicDir + '/js'))
+});
+
+
+gulp.task('default', ['css', 'fonts','minify-css','minify-js','watch','callback']);
