@@ -30,6 +30,14 @@ gulp.task('fonts', function() {
 });
 
 
+/////////////// JS //////////////////////
+gulp.task('js', function() {
+    return gulp.src('./js/*.js')
+    .pipe(gulp.dest(config.publicDir + '/js'));
+});
+
+
+
 //////////////// LIVE WATCH ////////////////////
 gulp.task('watch', function () {
     return watch('./css/*.scss', { ignoreInitial: false })
@@ -37,22 +45,10 @@ gulp.task('watch', function () {
         includePaths: [config.bootstrapDir + '/assets/stylesheets'],
     }))
         .pipe(gulp.dest(config.publicDir + '/css'));
-});
- 
-
-//////////////// CALL BACK ////////////////////
-gulp.task('callback', function () {
-    return watch('./css/*.scss', function () {
-        gulp.src('./css/*.scss')
-        	.pipe(sass({
-        includePaths: [config.bootstrapDir + '/assets/stylesheets'],
-    }))
-            .pipe(gulp.dest(config.publicDir + '/css'));
-    });
-
+        
 });
 
-
+////////////////// MINIFY CSS ///////////////////////
 gulp.task('minify-css', function () {
     gulp.src('./public/css/app.css')
         .pipe(minifycss({keepBreaks: true}))
@@ -63,6 +59,7 @@ gulp.task('minify-css', function () {
     ;
 });
 
+//////////////// MINIFY JS //////////////////////////
 gulp.task('minify-js', function() {
   gulp.src('./js/main.js')
     .pipe(minifyjs({
@@ -77,4 +74,4 @@ gulp.task('minify-js', function() {
 });
 
 
-gulp.task('default', ['css', 'fonts','minify-css','minify-js','watch','callback']);
+gulp.task('default', ['css', 'fonts','js','minify-css','minify-js','watch']);
