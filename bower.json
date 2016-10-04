@@ -1,0 +1,20 @@
+{
+  "name": "domerang",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Gorian <goriandriza11@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7"
+  }
+}
